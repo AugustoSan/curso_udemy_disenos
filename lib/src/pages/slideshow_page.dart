@@ -17,6 +17,8 @@ class SlideshowPage extends StatelessWidget {
           // showDotsTop: true,
           primaryColor: Colors.red,
           secondaryColor: Colors.black,
+          dotSizeActive: 20,
+          dotSizeInactive: 5,
           showDots: true,
           slides: [
             SvgPicture.asset('assets/svgs/slide-1.svg'),
