@@ -1,0 +1,1 @@
+export './cuadrado_animado_out.dart';
