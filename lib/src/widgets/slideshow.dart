@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:curso_udemy_disenos/src/models/index.dart';
 
 // TODO: Borrar
-import 'package:flutter_svg/svg.dart';
+// import 'package:flutter_svg/svg.dart';
 
 class Slidesshow extends StatelessWidget {
-  const Slidesshow({super.key});
+  final List<Widget> slides;
+  const Slidesshow({super.key, required this.slides});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +16,8 @@ class Slidesshow extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            Expanded(child: _Slides()),
-            _Dots(),
+            Expanded(child: _Slides(slides: slides)),
+            _Dots(totalSlides: slides.length),
           ],
         )
       )
@@ -26,6 +27,8 @@ class Slidesshow extends StatelessWidget {
 
 
 class _Dots extends StatelessWidget {
+  final int totalSlides;
+  const _Dots({required this.totalSlides});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -33,11 +36,12 @@ class _Dots extends StatelessWidget {
       height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _Dot(index: 0),
-          _Dot(index: 1),
-          _Dot(index: 2),
-        ],
+        // children: [
+        //   _Dot(index: 0),
+        //   _Dot(index: 1),
+        //   _Dot(index: 2),
+        // ],
+        children: List.generate(totalSlides, (index) => _Dot(index: index)),
       ),
     );
   }
@@ -69,6 +73,10 @@ class _Dot extends StatelessWidget {
 }
 
 class _Slides extends StatefulWidget {
+  final List<Widget> slides;
+  const _Slides({
+    required this.slides
+  });
   @override
   State<_Slides> createState() => _SlidesState();
 }
@@ -98,27 +106,28 @@ class _SlidesState extends State<_Slides> {
     return SizedBox(
       child: PageView(
         controller: pageViewController,
-        children: [
-          _Slide(asset: 'assets/svgs/slide-1.svg'),
-          _Slide(asset: 'assets/svgs/slide-2.svg'),
-          _Slide(asset: 'assets/svgs/slide-3.svg'),
-        ],
+        // children: [
+        //   _Slide(asset: 'assets/svgs/slide-1.svg'),
+        //   _Slide(asset: 'assets/svgs/slide-2.svg'),
+        //   _Slide(asset: 'assets/svgs/slide-3.svg'),
+        // ],
+        children: widget.slides.map((slide) => _Slide(slide: slide)).toList(),
       ),
     );
   }
 }
 
 class _Slide extends StatelessWidget {
-  final String asset;
+  final Widget slide;
   const _Slide({
-    required this.asset,
+    required this.slide,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(30),
-      child: SvgPicture.asset(asset),
+      child: slide,
     );
   }
 }
