@@ -52,6 +52,7 @@ class _Dot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentPage = Provider.of<SliderModel>(context).currentPage;
+    // Determinar si el punto actual es el activo o no, considerando un rango de 0.5 para cada lado del índice
     final isActive = (currentPage >= index - 0.5) && (currentPage < index + 0.5);
 
     return Container(
