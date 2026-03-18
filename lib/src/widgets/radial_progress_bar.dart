@@ -7,6 +7,7 @@ class RadialProgressBar extends StatefulWidget {
   final Color colorSecundario;
   final double grosorPrimario;
   final double grosorSecundario;
+  final List<Color> gradienteColores;
 
   const RadialProgressBar({
     super.key, 
@@ -15,6 +16,7 @@ class RadialProgressBar extends StatefulWidget {
     this.colorSecundario = Colors.grey,
     this.grosorPrimario = 10,
     this.grosorSecundario = 4,
+    this.gradienteColores = const [],
   });
 
   @override
@@ -61,7 +63,8 @@ class _RadialProgressBarState extends State<RadialProgressBar> with SingleTicker
               colorPrimario: widget.colorPrimario, 
               colorSecundario: widget.colorSecundario,
               grosorPrimario: widget.grosorPrimario,
-              grosorSecundario: widget.grosorSecundario
+              grosorSecundario: widget.grosorSecundario,
+              gradienteColores: widget.gradienteColores,
             ),
           ),
         );
@@ -77,6 +80,7 @@ class _MiRadialProgress extends CustomPainter {
   final Color colorSecundario;
   final double grosorPrimario;
   final double grosorSecundario;
+  final List<Color> gradienteColores;
 
   _MiRadialProgress(
     {
@@ -84,7 +88,8 @@ class _MiRadialProgress extends CustomPainter {
       required this.colorPrimario,
       required this.colorSecundario,
       required this.grosorPrimario,
-      required this.grosorSecundario
+      required this.grosorSecundario,
+      required this.gradienteColores,
     }
   );
 
@@ -101,15 +106,25 @@ class _MiRadialProgress extends CustomPainter {
 
     canvas.drawCircle(center, radio, paint);
 
+    final rect = Rect.fromCircle(center: center, radius: radio);
+
     final paintArco = new Paint()
-      ..color = colorPrimario
       ..strokeWidth = grosorPrimario
+      ..strokeCap = StrokeCap.round // Para que los bordes del arco sean redondeados
       ..style = PaintingStyle.stroke;
+
+    // Aplicar gradiente solo si hay suficientes colores
+    if (gradienteColores.length >= 2) {
+      final rect = Rect.fromCircle(center: center, radius: radio);
+      paintArco.shader = LinearGradient(colors: gradienteColores).createShader(rect);
+    } else {
+      paintArco.color = colorPrimario;
+    }
 
       // Parte que se debera llenando
       double arcAngle = 2 * pi * (porcentaje / 100); // 50% del circulo
       canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radio), // Rectangulo que define el circulo
+        rect, // Rectangulo que define el circulo
         -pi / 2, // Angulo de inicio (en este caso, la parte superior del circulo)
         arcAngle, // Angulo de barrido (en este caso, el 50% del circulo)
         false, // No es un arco cerrado

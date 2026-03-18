@@ -33,7 +33,7 @@ class _GraficasCircularesPageState extends State<GraficasCircularesPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              CustomRadialProgress(porcentaje: porcentaje, colorPrimario: Colors.red, colorSecundario: Colors.red.withOpacity(0.2), grosorPrimario: 5, grosorSecundario: 5),
+              CustomRadialProgress(porcentaje: porcentaje, colorSecundario: Colors.red.withOpacity(0.2), grosorPrimario: 5, grosorSecundario: 5, gradienteColores: [Colors.red, Colors.black, Colors.yellow],),
               CustomRadialProgress(porcentaje: porcentaje, colorPrimario: Colors.yellow, colorSecundario: Colors.yellow.withOpacity(0.2), grosorPrimario: 10, grosorSecundario: 10),
             ],
           ),
@@ -60,6 +60,7 @@ class CustomRadialProgress extends StatelessWidget {
   final Color colorSecundario;
   final double grosorPrimario;
   final double grosorSecundario;
+  final List<Color> gradienteColores;
 
   const CustomRadialProgress({
     super.key,
@@ -68,6 +69,7 @@ class CustomRadialProgress extends StatelessWidget {
     this.colorSecundario = Colors.grey,
     this.grosorPrimario = 10,
     this.grosorSecundario = 4,
+    this.gradienteColores = const [],
   });
 
 
@@ -82,6 +84,7 @@ class CustomRadialProgress extends StatelessWidget {
         colorSecundario: colorSecundario,
         grosorPrimario: grosorPrimario,
         grosorSecundario: grosorSecundario,
+        gradienteColores: gradienteColores,
       ),
     );
   }
