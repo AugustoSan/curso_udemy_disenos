@@ -17,7 +17,12 @@ class _GraficasCircularesPageState extends State<GraficasCircularesPage> {
         child: SizedBox(
           width: 300,
           height: 300,
-          child: RadialProgressBar(porcentaje: porcentaje),
+          child: RadialProgressBar(
+            porcentaje: porcentaje, 
+            colorPrimario: Colors.red, 
+            colorSecundario: Colors.grey,
+            grosorSecundario: 20,
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
