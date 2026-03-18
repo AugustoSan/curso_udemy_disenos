@@ -1,3 +1,3 @@
 export './animaciones_page.dart';
 export './headers_page.dart';
-export './circular_progress_page.dart';
+export './graficas_circulares_page.dart';
