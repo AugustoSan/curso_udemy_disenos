@@ -2,24 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:curso_udemy_disenos/src/models/index.dart';
 
-// TODO: Borrar
-// import 'package:flutter_svg/svg.dart';
-
 class Slidesshow extends StatelessWidget {
   final List<Widget> slides;
-  const Slidesshow({super.key, required this.slides});
+  final bool showDots;
+  final bool showDotsTop;
+  final Color primaryColor;
+  final Color secondaryColor;
+  const Slidesshow({
+    super.key, 
+    required this.slides, 
+    this.showDots = true, 
+    this.showDotsTop = false,
+    this.primaryColor = Colors.blue,
+    this.secondaryColor = Colors.grey,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => SliderModel(), 
-      child: Center(
-        child: Column(
-          children: [
-            Expanded(child: _Slides(slides: slides)),
-            _Dots(totalSlides: slides.length),
-          ],
-        )
+      child: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              if(showDotsTop && showDots) _Dots(totalSlides: slides.length, primaryColor: primaryColor, secondaryColor: secondaryColor),
+              Expanded(child: _Slides(slides: slides)),
+              if(!showDotsTop && showDots) _Dots(totalSlides: slides.length, primaryColor: primaryColor, secondaryColor: secondaryColor),
+            ],
+          )
+        ),
       )
     );
   }
@@ -28,7 +39,9 @@ class Slidesshow extends StatelessWidget {
 
 class _Dots extends StatelessWidget {
   final int totalSlides;
-  const _Dots({required this.totalSlides});
+  final Color primaryColor;
+  final Color secondaryColor;
+  const _Dots({required this.totalSlides, required this.primaryColor, required this.secondaryColor});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -36,12 +49,7 @@ class _Dots extends StatelessWidget {
       height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        // children: [
-        //   _Dot(index: 0),
-        //   _Dot(index: 1),
-        //   _Dot(index: 2),
-        // ],
-        children: List.generate(totalSlides, (index) => _Dot(index: index)),
+        children: List.generate(totalSlides, (index) => _Dot(index: index, primaryColor: primaryColor, secondaryColor: secondaryColor)),
       ),
     );
   }
@@ -49,8 +57,12 @@ class _Dots extends StatelessWidget {
 
 class _Dot extends StatelessWidget {
   final int index;
+  final Color primaryColor;
+  final Color secondaryColor;
   const _Dot({
     required this.index,
+    required this.primaryColor,
+    required this.secondaryColor
   });
 
   @override
@@ -65,7 +77,7 @@ class _Dot extends StatelessWidget {
       height: isActive ? 20 : 10,
       margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
-        color: isActive ? Colors.blue : Colors.grey,
+        color: isActive ? primaryColor : secondaryColor,
         shape: BoxShape.circle,
       ),
     );
@@ -106,11 +118,6 @@ class _SlidesState extends State<_Slides> {
     return SizedBox(
       child: PageView(
         controller: pageViewController,
-        // children: [
-        //   _Slide(asset: 'assets/svgs/slide-1.svg'),
-        //   _Slide(asset: 'assets/svgs/slide-2.svg'),
-        //   _Slide(asset: 'assets/svgs/slide-3.svg'),
-        // ],
         children: widget.slides.map((slide) => _Slide(slide: slide)).toList(),
       ),
     );

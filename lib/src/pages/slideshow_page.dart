@@ -14,6 +14,10 @@ class SlideshowPage extends StatelessWidget {
       create: (_) => SliderModel(),
       child: Scaffold(
         body: Slidesshow(
+          // showDotsTop: true,
+          primaryColor: Colors.red,
+          secondaryColor: Colors.black,
+          showDots: true,
           slides: [
             SvgPicture.asset('assets/svgs/slide-1.svg'),
             SvgPicture.asset('assets/svgs/slide-2.svg'),
