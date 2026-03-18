@@ -13,17 +13,31 @@ class _GraficasCircularesPageState extends State<GraficasCircularesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SizedBox(
-          width: 300,
-          height: 300,
-          child: RadialProgressBar(
-            porcentaje: porcentaje, 
-            colorPrimario: Colors.red, 
-            colorSecundario: Colors.grey,
-            grosorSecundario: 20,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomRadialProgress(porcentaje: porcentaje, colorPrimario: Colors.purple, colorSecundario: Colors.purple.withOpacity(0.2), grosorPrimario: 10, grosorSecundario: 5),
+              CustomRadialProgress(porcentaje: porcentaje, colorPrimario: Colors.green, colorSecundario: Colors.green.withOpacity(0.2), grosorPrimario: 15, grosorSecundario: 10),
+            ],
           ),
-        ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomRadialProgress(porcentaje: porcentaje, colorPrimario: Colors.blue, colorSecundario: Colors.blue.withOpacity(0.2), grosorPrimario: 5, grosorSecundario: 10),
+              CustomRadialProgress(porcentaje: porcentaje, colorPrimario: Colors.orange, colorSecundario: Colors.orange.withOpacity(0.2), grosorPrimario: 2, grosorSecundario: 1),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomRadialProgress(porcentaje: porcentaje, colorPrimario: Colors.red, colorSecundario: Colors.red.withOpacity(0.2), grosorPrimario: 5, grosorSecundario: 5),
+              CustomRadialProgress(porcentaje: porcentaje, colorPrimario: Colors.yellow, colorSecundario: Colors.yellow.withOpacity(0.2), grosorPrimario: 10, grosorSecundario: 10),
+            ],
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.refresh),
@@ -35,6 +49,39 @@ class _GraficasCircularesPageState extends State<GraficasCircularesPage> {
             }
           });
         },
+      ),
+    );
+  }
+}
+
+class CustomRadialProgress extends StatelessWidget {
+  final double porcentaje;
+  final Color colorPrimario;
+  final Color colorSecundario;
+  final double grosorPrimario;
+  final double grosorSecundario;
+
+  const CustomRadialProgress({
+    super.key,
+    required this.porcentaje,
+    this.colorPrimario = Colors.blue,
+    this.colorSecundario = Colors.grey,
+    this.grosorPrimario = 10,
+    this.grosorSecundario = 4,
+  });
+
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 180,
+      height: 180,
+      child: RadialProgressBar(
+        porcentaje: porcentaje, 
+        colorPrimario: colorPrimario, 
+        colorSecundario: colorSecundario,
+        grosorPrimario: grosorPrimario,
+        grosorSecundario: grosorSecundario,
       ),
     );
   }

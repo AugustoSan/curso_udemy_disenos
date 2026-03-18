@@ -32,9 +32,6 @@ class _RadialProgressBarState extends State<RadialProgressBar> with SingleTicker
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
-    controller.addListener(() {
-      setState(() {});
-    });
 
     super.initState();
   }
@@ -53,13 +50,14 @@ class _RadialProgressBarState extends State<RadialProgressBar> with SingleTicker
     return AnimatedBuilder(
       animation: controller, 
       builder: (context, child) {
+        double porcentajeAnimado = ( widget.porcentaje - diferenciaAnimar ) + ( diferenciaAnimar * controller.value );
         return Container(
           width: double.infinity,
           height: double.infinity,
           padding: const EdgeInsets.all(10),
           child: CustomPaint(
             painter: _MiRadialProgress(
-              porcentaje: (widget.porcentaje - diferenciaAnimar) + (diferenciaAnimar * controller.value), 
+              porcentaje: porcentajeAnimado, 
               colorPrimario: widget.colorPrimario, 
               colorSecundario: widget.colorSecundario,
               grosorPrimario: widget.grosorPrimario,
