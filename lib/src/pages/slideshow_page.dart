@@ -55,7 +55,8 @@ class _Dot extends StatelessWidget {
     // Determinar si el punto actual es el activo o no, considerando un rango de 0.5 para cada lado del índice
     final isActive = (currentPage >= index - 0.5) && (currentPage < index + 0.5);
 
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
       width: isActive ? 20 : 10,
       height: isActive ? 20 : 10,
       margin: const EdgeInsets.symmetric(horizontal: 5),
