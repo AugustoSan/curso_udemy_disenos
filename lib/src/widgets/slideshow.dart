@@ -102,7 +102,6 @@ class _SlidesState extends State<_Slides> {
     super.initState();
     
     pageViewController.addListener(() {
-        print('Página actual: ${pageViewController.page}');
 
         // Actualizar el valor de currentPage en el 
         Provider.of<_SlideshowModel>(context, listen: false).currentPage = pageViewController.page!;

@@ -13,31 +13,47 @@ class SlideshowPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => SliderModel(),
       child: Scaffold(
-        body: Slidesshow(
-          // showDotsTop: true,
-          primaryColor: Colors.red,
-          secondaryColor: Colors.black,
-          dotSizeActive: 20,
-          dotSizeInactive: 5,
-          showDots: true,
-          slides: [
-            SvgPicture.asset('assets/svgs/slide-1.svg'),
-            SvgPicture.asset('assets/svgs/slide-2.svg'),
-            SvgPicture.asset('assets/svgs/slide-3.svg'),  
-            SvgPicture.asset('assets/svgs/slide-4.svg'),  
-            SvgPicture.asset('assets/svgs/slide-5.svg'),  
-            Center(
-              child: Text('Slide 6', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))
-            ),
-            Container(
-              color: Colors.blue,
-              child: Center(
-                child: Text('Slide 7', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
-              ),
-            ),
+        body: Column(
+          children: [
+            Expanded(child: MiSlideShow()),
+            Expanded(child: MiSlideShow()),
           ],
         ),
       ),
+    );
+  }
+}
+
+class MiSlideShow extends StatelessWidget {
+  const MiSlideShow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Slidesshow(
+      // showDotsTop: true,
+      primaryColor: Colors.red,
+      secondaryColor: Colors.black,
+      dotSizeActive: 20,
+      dotSizeInactive: 5,
+      showDots: true,
+      slides: [
+        SvgPicture.asset('assets/svgs/slide-1.svg'),
+        SvgPicture.asset('assets/svgs/slide-2.svg'),
+        SvgPicture.asset('assets/svgs/slide-3.svg'),  
+        SvgPicture.asset('assets/svgs/slide-4.svg'),  
+        SvgPicture.asset('assets/svgs/slide-5.svg'),  
+        Center(
+          child: Text('Slide 6', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))
+        ),
+        Container(
+          color: Colors.blue,
+          child: Center(
+            child: Text('Slide 7', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
+          ),
+        ),
+      ],
     );
   }
 }
